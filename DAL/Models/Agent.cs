@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    public class User
+    public class Agent
     {
         [Key]
         public int Id { get; set; }
@@ -24,15 +24,24 @@ namespace DAL.Models
         [Required, MaxLength(20)]
         public string Phone { get; set; }
 
-        [Required]
-        public string Status { get; set; } = "active"; // active, inactive, blocked
+        [MaxLength(150)]
+        public string BusinessName { get; set; }
+
+        public string LicenseNo { get; set; }
+
+        public decimal CommissionRate { get; set; } = 0; // percentage
+
+        public string Location { get; set; }
+
+        public string Status { get; set; } = "active";
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
+
+
         // Relationships
         public ICollection<Wallet> Wallets { get; set; }
-        public ICollection<Budget> Budgets { get; set; }
         public ICollection<Notification> Notifications { get; set; }
     }
 }

@@ -8,71 +8,71 @@ using System.Threading.Tasks;
 
 namespace DAL.Repos
 {
-    internal class UserRepo : Repo, IRepo<User, string, User>
+    internal class WalletRepo : Repo, IRepo<Wallet, string, Wallet>
     {
 
         //static WalletDbContext db;
-        //static UserRepo()
+        //static WalletRepo()
         //{
         //    db = new WalletDbContext();
         //}
-        //public static List<User> Get()
+        //public static List<Wallet> Get()
         //{
-        //    return db.Users.ToList();
+        //    return db.Wallets.ToList();
         //}
-        //public static User Get(int id)
+        //public static Wallet Get(int id)
         //{
-        //    return db.Users.Find(id);
+        //    return db.Wallets.Find(id);
         //}
-        //public static bool Create(User obj)
+        //public static bool Create(Wallet obj)
         //{
-        //    db.Users.Add(obj);
+        //    db.Wallets.Add(obj);
         //    return db.SaveChanges() > 0;
         //}
-        //public static bool Update(User obj)
+        //public static bool Update(Wallet obj)
         //{
-        //    var ex = db.Users.Find(obj.Id);
+        //    var ex = db.Wallets.Find(obj.Id);
         //    db.Entry(ex).CurrentValues.SetValues(obj);
         //    return db.SaveChanges() > 0;
 
         //}
         //static public bool Delete(int id)
         //{
-        //    var ex = db.Users.Find(id);
-        //    db.Users.Remove(ex);
+        //    var ex = db.Wallets.Find(id);
+        //    db.Wallets.Remove(ex);
         //    return db.SaveChanges() > 0;
         //}
-        public User Create(User obj)
+        public Wallet Create(Wallet obj)
         {
-            db.Users.Add(obj);
+            db.Wallets.Add(obj);
             if (db.SaveChanges() > 0) return obj;
             else return null;
         }
 
 
-        public User Delete(string id)
+        public Wallet Delete(string id)
         {
-            var ex = db.Users.Find(id);
-            db.Users.Remove(ex);
+            var ex = db.Wallets.Find(id);
+            db.Wallets.Remove(ex);
             if (db.SaveChanges() > 0) return ex;
             else return null;
 
         }
 
-        public List<User> Read()
+        public List<Wallet> Read()
         {
-            return db.Users.ToList();
+            return db.Wallets.ToList();
         }
 
-        public User Read(string id)
+        public Wallet Read(string id)
         {
-            return db.Users.Find(id);
+            return db.Wallets.Find(id);
 
         }
 
-        public User Update(User obj)
+        public Wallet Update(Wallet obj)
         {
-            var ex = db.Users.Find(obj.Id);
+            var ex = db.Wallets.Find(obj.Id);
             db.Entry(ex).CurrentValues.SetValues(obj);
             if (db.SaveChanges() > 0) return obj;
             else return null;

@@ -8,71 +8,71 @@ using System.Threading.Tasks;
 
 namespace DAL.Repos
 {
-    internal class UserRepo : Repo, IRepo<User, string, User>
+    internal class BudgetRepo : Repo, IRepo<Budget, string, Budget>
     {
 
         //static WalletDbContext db;
-        //static UserRepo()
+        //static BudgetRepo()
         //{
         //    db = new WalletDbContext();
         //}
-        //public static List<User> Get()
+        //public static List<Budget> Get()
         //{
-        //    return db.Users.ToList();
+        //    return db.Budgets.ToList();
         //}
-        //public static User Get(int id)
+        //public static Budget Get(int id)
         //{
-        //    return db.Users.Find(id);
+        //    return db.Budgets.Find(id);
         //}
-        //public static bool Create(User obj)
+        //public static bool Create(Budget obj)
         //{
-        //    db.Users.Add(obj);
+        //    db.Budgets.Add(obj);
         //    return db.SaveChanges() > 0;
         //}
-        //public static bool Update(User obj)
+        //public static bool Update(Budget obj)
         //{
-        //    var ex = db.Users.Find(obj.Id);
+        //    var ex = db.Budgets.Find(obj.Id);
         //    db.Entry(ex).CurrentValues.SetValues(obj);
         //    return db.SaveChanges() > 0;
 
         //}
         //static public bool Delete(int id)
         //{
-        //    var ex = db.Users.Find(id);
-        //    db.Users.Remove(ex);
+        //    var ex = db.Budgets.Find(id);
+        //    db.Budgets.Remove(ex);
         //    return db.SaveChanges() > 0;
         //}
-        public User Create(User obj)
+        public Budget Create(Budget obj)
         {
-            db.Users.Add(obj);
+            db.Budgets.Add(obj);
             if (db.SaveChanges() > 0) return obj;
             else return null;
         }
 
 
-        public User Delete(string id)
+        public Budget Delete(string id)
         {
-            var ex = db.Users.Find(id);
-            db.Users.Remove(ex);
+            var ex = db.Budgets.Find(id);
+            db.Budgets.Remove(ex);
             if (db.SaveChanges() > 0) return ex;
             else return null;
 
         }
 
-        public List<User> Read()
+        public List<Budget> Read()
         {
-            return db.Users.ToList();
+            return db.Budgets.ToList();
         }
 
-        public User Read(string id)
+        public Budget Read(string id)
         {
-            return db.Users.Find(id);
+            return db.Budgets.Find(id);
 
         }
 
-        public User Update(User obj)
+        public Budget Update(Budget obj)
         {
-            var ex = db.Users.Find(obj.Id);
+            var ex = db.Budgets.Find(obj.Id);
             db.Entry(ex).CurrentValues.SetValues(obj);
             if (db.SaveChanges() > 0) return obj;
             else return null;

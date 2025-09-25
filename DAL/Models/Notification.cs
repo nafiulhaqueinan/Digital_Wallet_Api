@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    public class Wallet
+    public class Notification
     {
         [Key]
         public int Id { get; set; }
@@ -22,13 +22,14 @@ namespace DAL.Models
         [ForeignKey("AgentId")]
         public Agent Agent { get; set; }
 
-        public decimal Balance { get; set; } = 0;
-        public string Currency { get; set; } = "BDT";
+        [Required]
+        public string Message { get; set; }
 
-        public DateTime LastUpdate { get; set; } = DateTime.Now;
+        [Required]
+        public string Type { get; set; } // transaction, budget, system
 
-        // Relationships
-        public ICollection<Transaction> SentTransactions { get; set; }
-        public ICollection<Transaction> ReceivedTransactions { get; set; }
+        public bool IsRead { get; set; } = false;
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }
