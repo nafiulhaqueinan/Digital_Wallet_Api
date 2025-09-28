@@ -1,4 +1,7 @@
-﻿using DAL.Models;
+﻿using AutoMapper;
+using BLL.DTOs;
+using DAL;
+using DAL.Models;
 using DAL.Repos;
 using System;
 using System.Collections.Generic;
@@ -10,33 +13,30 @@ namespace BLL.Services
 {
     public class UserService
     {
-        public static Object Get()
+        public static List<UserDTO> Get()
         {
-            return UserRepo.Get();
+            var data = DataAccessFactory.UserData().Read();
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<User, UserDTO>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<List<UserDTO>>(data);
+            return mapped;
+
+
         }
-        public static User Get(int id)
+
+        public static UserDTO Get(string id)
         {
-            return UserRepo.Get(id);
-        }
-        public static bool Create(User obj)
-        {
-            return UserRepo.Create(obj);
-        }
-        public static bool Update(User obj)
-        {
-            return UserRepo.Update(obj);
-        }
-        public static bool Delete(int id)
-        {
-            return UserRepo.Delete(id);
-        }
-        
-        public static List<User> Get10()
-        {
-            var data = from u in UserRepo.Get()
-                       where u.Id <= 10
-                       select u;
-            return data.ToList();
+            var data = DataAccessFactory.UserData().Read(id);
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<User, UserDTO>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<UserDTO>(data);
+            return mapped;
         }
     }
 }

@@ -11,12 +11,13 @@ namespace Application_Layer.Controllers
     public class UserController : ApiController
     {
         [HttpGet]
-        [Route("api/user")]
-        public HttpResponseMessage Get()
+        [Route("api/users")]
+        public HttpResponseMessage Users()
         {
             try
             {
-                return Request.CreateResponse(HttpStatusCode.OK, UserService.Get());
+                var data = UserService.Get();
+                return Request.CreateResponse(HttpStatusCode.OK, data);
 
             }
             catch (Exception ex)
