@@ -38,5 +38,16 @@ namespace BLL.Services
             var mapped = mapper.Map<UserDTO>(data);
             return mapped;
         }
+        public static bool Create(UserDTO user)
+        {
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<UserDTO, User>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<User>(user);
+            var res = DataAccessFactory.UserData().Create(mapped);
+            return res != null;
+        }
     }
 }

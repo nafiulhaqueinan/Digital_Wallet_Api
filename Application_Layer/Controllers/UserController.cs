@@ -1,4 +1,5 @@
-﻿using BLL.Services;
+﻿using BLL.DTOs;
+using BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,21 @@ namespace Application_Layer.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, data);
 
             }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Msg = ex.Message });
+            }
+        }
+        [HttpPost]
+        [Route("api/users/SignUp")]
+        public HttpResponseMessage CreateUsers([FromBody] UserDTO user)
+        {
+            try
+            {
+                var data = UserService.Create(user);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+
+            }   
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Msg = ex.Message });
