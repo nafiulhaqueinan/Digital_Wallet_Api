@@ -46,6 +46,12 @@ namespace BLL.Services
             });
             var mapper = new Mapper(cfg);
             var mapped = mapper.Map<User>(user);
+            var existingUser = DataAccessFactory.UserData().Read().FirstOrDefault(u => u.Phone == user.Phone );
+            if(existingUser != null)
+            {
+               //Phone Number already Used
+                return false;
+            }
             var res = DataAccessFactory.UserData().Create(mapped);
             return res != null;
         }
