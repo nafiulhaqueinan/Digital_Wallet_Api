@@ -8,40 +8,9 @@ using System.Threading.Tasks;
 
 namespace DAL.Repos
 {
-    internal class TransactionRepo : Repo, IRepo<Transaction, string, Transaction>
+    internal class TransactionRepo : Repo, IRepo<Transaction, int, Transaction>
     {
 
-        //static WalletDbContext db;
-        //static TransactionRepo()
-        //{
-        //    db = new WalletDbContext();
-        //}
-        //public static List<Transaction> Get()
-        //{
-        //    return db.Transactions.ToList();
-        //}
-        //public static Transaction Get(int id)
-        //{
-        //    return db.Transactions.Find(id);
-        //}
-        //public static bool Create(Transaction obj)
-        //{
-        //    db.Transactions.Add(obj);
-        //    return db.SaveChanges() > 0;
-        //}
-        //public static bool Update(Transaction obj)
-        //{
-        //    var ex = db.Transactions.Find(obj.Id);
-        //    db.Entry(ex).CurrentValues.SetValues(obj);
-        //    return db.SaveChanges() > 0;
-
-        //}
-        //static public bool Delete(int id)
-        //{
-        //    var ex = db.Transactions.Find(id);
-        //    db.Transactions.Remove(ex);
-        //    return db.SaveChanges() > 0;
-        //}
         public Transaction Create(Transaction obj)
         {
             db.Transactions.Add(obj);
@@ -50,7 +19,7 @@ namespace DAL.Repos
         }
 
 
-        public Transaction Delete(string id)
+        public Transaction Delete(int id)
         {
             var ex = db.Transactions.Find(id);
             db.Transactions.Remove(ex);
@@ -64,7 +33,7 @@ namespace DAL.Repos
             return db.Transactions.ToList();
         }
 
-        public Transaction Read(string id)
+        public Transaction Read(int id)
         {
             return db.Transactions.Find(id);
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repos
 {
-    internal class NotificationRepo : Repo, IRepo<Notification, string, Notification>
+    internal class NotificationRepo : Repo, IRepo<Notification, int, Notification>
     {
 
         //static WalletDbContext db;
@@ -50,7 +50,7 @@ namespace DAL.Repos
         }
 
 
-        public Notification Delete(string id)
+        public Notification Delete(int id)
         {
             var ex = db.Notifications.Find(id);
             db.Notifications.Remove(ex);
@@ -64,7 +64,7 @@ namespace DAL.Repos
             return db.Notifications.ToList();
         }
 
-        public Notification Read(string id)
+        public Notification Read(int id)
         {
             return db.Notifications.Find(id);
 

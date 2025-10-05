@@ -15,19 +15,19 @@ namespace DAL
         {
             return new UserRepo();
         }
-        public static IRepo<Agent, string, Agent> AgentData()
+        public static IRepo<Agent, int, Agent> AgentData()
         {
             return new AgentRepo();
         }
-        public static IRepo<Budget, string, Budget> BudgetData()
+        public static IRepo<Budget, int, Budget> BudgetData()
         {
             return new BudgetRepo();
         }
-        public static IRepo<Notification, string, Notification> NotificationData()
+        public static IRepo<Notification, int, Notification> NotificationData()
         {
             return new NotificationRepo();
         }
-        public static IRepo<Transaction, string, Transaction> TransactionData()
+        public static IRepo<Transaction, int, Transaction> TransactionData()
         {
             return new TransactionRepo();
         }

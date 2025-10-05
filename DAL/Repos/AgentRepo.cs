@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repos
 {
-    internal class AgentRepo : Repo, IRepo<Agent, string, Agent>
+    internal class AgentRepo : Repo, IRepo<Agent, int, Agent>
     {
         public Agent Create(Agent obj)
         {
@@ -18,7 +18,7 @@ namespace DAL.Repos
         }
 
 
-        public Agent Delete(string id)
+        public Agent Delete(int id)
         {
             var ex = db.Agents.Find(id);
             db.Agents.Remove(ex);
@@ -32,7 +32,7 @@ namespace DAL.Repos
             return db.Agents.ToList();
         }
 
-        public Agent Read(string id)
+        public Agent Read(int id)
         {
             return db.Agents.Find(id);
 

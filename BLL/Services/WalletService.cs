@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    internal class WalletService
+    public class WalletService
     {
         public static Mapper GetMapper()
         {

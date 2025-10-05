@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repos
 {
-    internal class BudgetRepo : Repo, IRepo<Budget, string, Budget>
+    internal class BudgetRepo : Repo, IRepo<Budget, int, Budget>
     {
 
         //static WalletDbContext db;
@@ -50,7 +50,7 @@ namespace DAL.Repos
         }
 
 
-        public Budget Delete(string id)
+        public Budget Delete(int id)
         {
             var ex = db.Budgets.Find(id);
             db.Budgets.Remove(ex);
@@ -64,7 +64,7 @@ namespace DAL.Repos
             return db.Budgets.ToList();
         }
 
-        public Budget Read(string id)
+        public Budget Read(int id)
         {
             return db.Budgets.Find(id);
 
