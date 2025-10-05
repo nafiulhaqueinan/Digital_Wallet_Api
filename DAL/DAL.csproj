@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessFactory.cs" />
+    <Compile Include="Interfaces\IaddAndDed.cs" />
     <Compile Include="Interfaces\IRepo.cs" />
     <Compile Include="Migrations\202509240939191_FixTransactionIssue.cs" />
     <Compile Include="Migrations\202509240939191_FixTransactionIssue.Designer.cs">

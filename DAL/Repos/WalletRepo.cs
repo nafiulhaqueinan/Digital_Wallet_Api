@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace DAL.Repos
 {
-    internal class WalletRepo : Repo, IRepo<Wallet, string, Wallet>
+    internal class WalletRepo : Repo, IRepo<Wallet, int, Wallet>, IaddAndDed<Wallet, int, Wallet>
     {
+      
 
         public Wallet Create(Wallet obj)
         {
@@ -19,7 +20,7 @@ namespace DAL.Repos
         }
 
 
-        public Wallet Delete(string id)
+        public Wallet Delete(int id)
         {
             var ex = db.Wallets.Find(id);
             db.Wallets.Remove(ex);
@@ -33,7 +34,7 @@ namespace DAL.Repos
             return db.Wallets.ToList();
         }
 
-        public Wallet Read(string id)
+        public Wallet Read(int id)
         {
             return db.Wallets.Find(id);
 
@@ -48,7 +49,7 @@ namespace DAL.Repos
 
         }
 
-        public Wallet AddMoney(string id, decimal amount)
+        public Wallet AddMoney(int id, decimal amount)
         {
             var wallet = db.Wallets.Find(id);
             if (wallet != null)
@@ -58,7 +59,7 @@ namespace DAL.Repos
             }
             return null;
         }
-        public Wallet DeductMoney(string id, decimal amount)
+        public Wallet DeductMoney(int id, decimal amount)
         {
             var wallet = db.Wallets.Find(id);
             if (wallet != null && wallet.Balance >= amount)

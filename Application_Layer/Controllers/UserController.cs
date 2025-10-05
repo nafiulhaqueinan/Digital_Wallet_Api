@@ -41,5 +41,19 @@ namespace Application_Layer.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Msg = ex.Message });
             }
         }
+        [HttpDelete]
+        [Route("api/users/Delete/{id}")]
+        public HttpResponseMessage DeleteUsers(int id)
+        {
+            try
+            {
+                var data = UserService.Delete(id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Msg = ex.Message });
+            }
+        }
     }
 }

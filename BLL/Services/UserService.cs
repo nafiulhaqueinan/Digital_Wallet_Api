@@ -13,60 +13,48 @@ namespace BLL.Services
 {
     public class UserService
     {
+        public static Mapper GetMapper()
+        {
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<User, UserDTO>().ReverseMap();
+            });
+            return new Mapper(cfg);
+            
+        }
         public static List<UserDTO> Get()
         {
             var data = DataAccessFactory.UserData().Read();
-            var cfg = new MapperConfiguration(c =>
-            {
-                c.CreateMap<User, UserDTO>();
-            });
-            var mapper = new Mapper(cfg);
-            var mapped = mapper.Map<List<UserDTO>>(data);
-            return mapped;
+            return GetMapper().Map<List<UserDTO>>(data);
 
 
         }
 
-        public static UserDTO Get(string id)
+        public static UserDTO Get(int id)
         {
+            var st = GetMapper().Map<UserDTO>(id);
             var data = DataAccessFactory.UserData().Read(id);
-            var cfg = new MapperConfiguration(c =>
-            {
-                c.CreateMap<User, UserDTO>();
-            });
-            var mapper = new Mapper(cfg);
-            var mapped = mapper.Map<UserDTO>(data);
+            var mapped = GetMapper().Map<UserDTO>(data);
             return mapped;
         }
         public static bool Create(UserDTO user)
         {
-            var cfg = new MapperConfiguration(c =>
-            {
-                c.CreateMap<UserDTO, User>();
-            });
-            var mapper = new Mapper(cfg);
+            var mapper = GetMapper();
             var mappedUser = mapper.Map<User>(user);
-
-            // Check if phone number already exists
             var existingUser = DataAccessFactory.UserData()
                                 .Read()
                                 .FirstOrDefault(u => u.Phone == user.Phone);
 
             if (existingUser != null)
             {
-                // Phone Number already Used
                 return false;
             }
-
-            // ✅ Save user first
             var createdUser = DataAccessFactory.UserData().Create(mappedUser);
 
             if (createdUser == null) return false;
-
-            // ✅ Now create wallet with correct UserId
             var wallet = new Wallet
             {
-                UserId = createdUser.Id,   // <-- now we have real DB Id
+                UserId = createdUser.Id,
                 Balance = 10000,
                 Currency = "BDT",
                 LastUpdate = DateTime.Now,
@@ -77,6 +65,25 @@ namespace BLL.Services
 
             return walletRes != null;
         }
+        public static bool Update(UserDTO user)
+        {
+            var mapper = GetMapper();
+            var mapped = mapper.Map<User>(user);
+            var res = DataAccessFactory.UserData().Update(mapped);
+            return res != null;
+
+        }
+        public static bool Delete(int  id)
+        {
+            var wallets = DataAccessFactory.WalletData().Read().Where(w => w.UserId == id).ToList();
+            foreach(var wallet in wallets)
+            {
+                DataAccessFactory.WalletData().Delete(wallet.Id);
+            }
+            var data = DataAccessFactory.UserData().Delete(id);
+            return data != null;
+        }
+
 
     }
 }

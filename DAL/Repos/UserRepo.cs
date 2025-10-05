@@ -8,40 +8,8 @@ using System.Threading.Tasks;
 
 namespace DAL.Repos
 {
-    internal class UserRepo : Repo, IRepo<User, string, User>
+    internal class UserRepo : Repo, IRepo<User, int, User>
     {
-
-        //static WalletDbContext db;
-        //static UserRepo()
-        //{
-        //    db = new WalletDbContext();
-        //}
-        //public static List<User> Get()
-        //{
-        //    return db.Users.ToList();
-        //}
-        //public static User Get(int id)
-        //{
-        //    return db.Users.Find(id);
-        //}
-        //public static bool Create(User obj)
-        //{
-        //    db.Users.Add(obj);
-        //    return db.SaveChanges() > 0;
-        //}
-        //public static bool Update(User obj)
-        //{
-        //    var ex = db.Users.Find(obj.Id);
-        //    db.Entry(ex).CurrentValues.SetValues(obj);
-        //    return db.SaveChanges() > 0;
-
-        //}
-        //static public bool Delete(int id)
-        //{
-        //    var ex = db.Users.Find(id);
-        //    db.Users.Remove(ex);
-        //    return db.SaveChanges() > 0;
-        //}
         public User Create(User obj)
         {
             db.Users.Add(obj);
@@ -50,9 +18,10 @@ namespace DAL.Repos
         }
 
 
-        public User Delete(string id)
+        public User Delete(int id)
         {
             var ex = db.Users.Find(id);
+            if(ex == null) return null;
             db.Users.Remove(ex);
             if (db.SaveChanges() > 0) return ex;
             else return null;
@@ -64,7 +33,7 @@ namespace DAL.Repos
             return db.Users.ToList();
         }
 
-        public User Read(string id)
+        public User Read(int id)
         {
             return db.Users.Find(id);
 

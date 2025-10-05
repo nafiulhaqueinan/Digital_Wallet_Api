@@ -11,7 +11,7 @@ namespace DAL
 {
     public class DataAccessFactory
     {
-        public static IRepo<User, string, User> UserData()
+        public static IRepo<User, int, User> UserData()
         {
             return new UserRepo();
         }
@@ -31,9 +31,13 @@ namespace DAL
         {
             return new TransactionRepo();
         }
-        public static IRepo<Wallet, string, Wallet> WalletData()
+        public static IRepo<Wallet, int, Wallet> WalletData()
         {
             return new WalletRepo();
+        }
+        public static IaddAndDed<Wallet, int, Wallet> WalletData2()
+        {
+            return new WalletRepo(); 
         }
 
     }
