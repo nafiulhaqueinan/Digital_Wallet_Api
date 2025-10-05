@@ -55,5 +55,29 @@ namespace Application_Layer.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Msg = ex.Message });
             }
         }
+        [HttpPut]
+        [Route("api/users/Update/{id}")]
+        public HttpResponseMessage UpdateInfo(int id, [FromBody] UserDTO user)
+        {
+            try
+            {
+                if (user == null)
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, new { msg = "User payload is required" });
+
+                // ensure the id matches route (or enforce route id)
+                user.Id = id;
+
+                var success = UserService.Update(user);
+                if (success)
+                    return Request.CreateResponse(HttpStatusCode.OK, new { success = true });
+                else
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { msg = "User not found or update failed" });
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { msg = ex.Message });
+            }
+        }
+
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 namespace DAL
 {
-    internal class WalletDbContext : DbContext
+    public class WalletDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Agent> Agents { get; set; }

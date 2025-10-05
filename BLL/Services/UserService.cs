@@ -55,7 +55,7 @@ namespace BLL.Services
             var wallet = new Wallet
             {
                 UserId = createdUser.Id,
-                Balance = 10000,
+                Balance = 0,
                 Currency = "BDT",
                 LastUpdate = DateTime.Now,
                 AgentId = 1
