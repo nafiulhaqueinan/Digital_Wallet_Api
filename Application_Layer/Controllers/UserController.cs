@@ -9,10 +9,11 @@ using System.Web.Http;
 
 namespace Application_Layer.Controllers
 {
+    [RoutePrefix("api/user")]
     public class UserController : ApiController
     {
         [HttpGet]
-        [Route("api/users")]
+        [Route("all")]
         public HttpResponseMessage Users()
         {
             try
@@ -27,7 +28,7 @@ namespace Application_Layer.Controllers
             }
         }
         [HttpPost]
-        [Route("api/users/SignUp")]
+        [Route("signup")]
         public HttpResponseMessage CreateUsers([FromBody] UserDTO user)
         {
             try
@@ -42,7 +43,7 @@ namespace Application_Layer.Controllers
             }
         }
         [HttpDelete]
-        [Route("api/users/Delete/{id}")]
+        [Route("delete/{id}")]
         public HttpResponseMessage DeleteUsers(int id)
         {
             try
@@ -56,15 +57,14 @@ namespace Application_Layer.Controllers
             }
         }
         [HttpPut]
-        [Route("api/users/Update/{id}")]
+        [Route("update/{id}")]
         public HttpResponseMessage UpdateInfo(int id, [FromBody] UserDTO user)
         {
             try
             {
                 if (user == null)
                     return Request.CreateResponse(HttpStatusCode.BadRequest, new { msg = "User payload is required" });
-
-                // ensure the id matches route (or enforce route id)
+ 
                 user.Id = id;
 
                 var success = UserService.Update(user);

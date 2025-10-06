@@ -25,7 +25,7 @@ namespace BLL.Services
         public static bool Create(NotificationDTO notification)
         {
             var mapper = GetMapper();
-            var mappedNotification = mapper.Map<DAL.Models.Notification>(notification);
+            var mappedNotification = mapper.Map<Notification>(notification);
             var createdNotification = DataAccessFactory.NotificationData().Create(mappedNotification);
             return createdNotification != null;
         }
@@ -48,7 +48,7 @@ namespace BLL.Services
         public static bool Update(NotificationDTO notification)
         {
             var mapper = GetMapper();
-            var mappedNotification = mapper.Map<DAL.Models.Notification>(notification);
+            var mappedNotification = mapper.Map<Notification>(notification);
             var updatedNotification = DataAccessFactory.NotificationData().Update(mappedNotification);
             return updatedNotification != null;
         }

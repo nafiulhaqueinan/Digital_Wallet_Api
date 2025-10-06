@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.DTOs;
 using DAL;
+using DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace BLL.Services
         {
             var cfg = new MapperConfiguration(c =>
             {
-                c.CreateMap<WalletService, WalletDTO>().ReverseMap();
+                c.CreateMap<Wallet, WalletDTO>().ReverseMap();
             });
             return new Mapper(cfg);
 
@@ -60,5 +61,6 @@ namespace BLL.Services
             var updatedWallet = DataAccessFactory.WalletData2().DeductMoney(id, amount);
             return GetMapper().Map<WalletDTO>(updatedWallet);
         }
+
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    public class BudgerService
+    public class BudgetService
     {
         public static Mapper GetMapper()
         {
@@ -25,7 +25,7 @@ namespace BLL.Services
         public static bool Create(BudgetDTO budget)
         {
             var mapper = GetMapper();
-            var mappedBudget = mapper.Map<DAL.Models.Budget>(budget);
+            var mappedBudget = mapper.Map<Budget>(budget);
             var createdBudget = DataAccessFactory.BudgetData().Create(mappedBudget);
             return createdBudget != null;
         }
@@ -48,7 +48,7 @@ namespace BLL.Services
         public static bool Update(BudgetDTO budget)
         {
             var mapper = GetMapper();
-            var mappedBudget = mapper.Map<DAL.Models.Budget>(budget);
+            var mappedBudget = mapper.Map<Budget>(budget);
             var updatedBudget = DataAccessFactory.BudgetData().Update(mappedBudget);
             return updatedBudget != null;
         }

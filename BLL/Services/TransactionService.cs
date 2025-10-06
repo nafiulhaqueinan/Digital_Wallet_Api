@@ -25,7 +25,7 @@ namespace BLL.Services
         public static bool Create(TransactionDTO transaction)
         {
             var mapper = GetMapper();
-            var mappedTransaction = mapper.Map<DAL.Models.Transaction>(transaction);
+            var mappedTransaction = mapper.Map<Transaction>(transaction);
             var createdTransaction = DataAccessFactory.TransactionData().Create(mappedTransaction);
             return createdTransaction != null;
         }

@@ -24,7 +24,7 @@ namespace BLL.Services
         public static bool Create(AgentDTO agent)
         {
             var mapper = GetMapper();
-            var mappedAgent = mapper.Map<DAL.Models.Agent>(agent);
+            var mappedAgent = mapper.Map<Agent>(agent);
             var createdAgent = DataAccessFactory.AgentData().Create(mappedAgent);
             return createdAgent != null;
         }
@@ -47,7 +47,7 @@ namespace BLL.Services
         public static bool Update(AgentDTO agent)
         {
             var mapper = GetMapper();
-            var mappedAgent = mapper.Map<DAL.Models.Agent>(agent);
+            var mappedAgent = mapper.Map<Agent>(agent);
             var updatedAgent = DataAccessFactory.AgentData().Update(mappedAgent);
             return updatedAgent != null;
         }
