@@ -69,20 +69,6 @@ namespace Application_Layer.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Msg = ex.Message });
             }
         }
-        [HttpDelete]
-        [Route("delete/{id}")]
-        public HttpResponseMessage Delete(int id)
-        {
-            try
-            {
-                var data = TransactionService.Delete(id);
-                return Request.CreateResponse(HttpStatusCode.OK, data);
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, new { Msg = ex.Message });
-            }
-        }
         [HttpGet]
         [Route("{id}")]
         public HttpResponseMessage Get(int id)
