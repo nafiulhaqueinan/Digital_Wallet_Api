@@ -1,4 +1,5 @@
-﻿using BLL.Services;
+﻿using BLL.DTOs;
+using BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,50 +26,18 @@ namespace Application_Layer.Controllers
                 return Request.CreateResponse(System.Net.HttpStatusCode.InternalServerError, new { Msg = ex.Message });
             }
         }
-
         [HttpPost]
-        [Route("create")]
-        public HttpResponseMessage Create()
+        [Route("Create")]
+        public HttpResponseMessage CreateNotification([FromBody] NotificationDTO N)
         {
             try
             {
-                // Placeholder for actual creation logic
-                var agent = new { Id = 1, Name = "New Agent" };
-                return Request.CreateResponse(System.Net.HttpStatusCode.OK, agent);
+                var data = NotificationService.Create(N);
+                return Request.CreateResponse(System.Net.HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
-                return Request.CreateResponse(System.Net.HttpStatusCode.InternalServerError, new { Msg = ex.Message });
-            }
-        }
-        [HttpDelete]
-        [Route("delete/{id}")]
-        public HttpResponseMessage Delete(int id)
-        {
-            try
-            {
-                // Placeholder for actual deletion logic
-                var success = true;
-                return Request.CreateResponse(System.Net.HttpStatusCode.OK, success);
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateResponse(System.Net.HttpStatusCode.InternalServerError, new { Msg = ex.Message });
-            }
-        }
-        [HttpPut]
-        [Route("update/{id}")]
-        public HttpResponseMessage Update(int id)
-        {
-            try
-            {
-                // Placeholder for actual update logic
-                var updatedAgent = new { Id = id, Name = "Updated Agent" };
-                return Request.CreateResponse(System.Net.HttpStatusCode.OK, updatedAgent);
-            }
-            catch (Exception ex)
-            {
-                return Request.CreateResponse(System.Net.HttpStatusCode.InternalServerError, new { Msg = ex.Message });
+                return Request.CreateResponse(System.Net.HttpStatusCode.InternalServerError,new { Msg = ex.Message });
             }
         }
 

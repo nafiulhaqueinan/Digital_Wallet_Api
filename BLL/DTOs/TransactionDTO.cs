@@ -24,7 +24,7 @@ namespace BLL.DTOs
         public virtual Wallet ReceiverWallet { get; set; }
 
         [Required]
-        public string Type { get; set; } // transfer, deposit, withdraw, payment
+        public string Type { get; set; } 
 
         [Required]
         public decimal Amount { get; set; }
