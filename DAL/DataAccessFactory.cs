@@ -39,6 +39,10 @@ namespace DAL
         {
             return new WalletRepo(); 
         }
+        public static ISendMoney<User, string, User> UserSendMoney()
+        {
+            return new UserRepo();
+        }
 
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repos
 {
-    internal class UserRepo : Repo, IRepo<User, int, User>
+    internal class UserRepo : Repo, IRepo<User, int, User>, ISendMoney<User, string, User>
     {
         public User Create(User obj)
         {
@@ -46,6 +46,26 @@ namespace DAL.Repos
             if (db.SaveChanges() > 0) return obj;
             else return null;
 
+        }
+        public User GetByPhone(string phone)
+        {
+            return db.Users.Where(u => u.Phone == phone).FirstOrDefault();
+        }
+
+        public User SendMoney(User sender, string receiver, decimal amount)
+        {
+            var rcv = GetByPhone(receiver);
+            if (rcv == null || sender == null) return null;
+            var sndrWallet = db.Wallets.Where(w => w.UserId == sender.Id).FirstOrDefault();
+            var rcvWallet = db.Wallets.Where(w => w.UserId == rcv.Id).FirstOrDefault();
+            if (sndrWallet == null || rcvWallet == null) return null;
+            if (sndrWallet.Balance < amount) return null;
+            sndrWallet.Balance -= amount;
+            rcvWallet.Balance += amount;
+            db.Entry(sndrWallet).CurrentValues.SetValues(sndrWallet);
+            db.Entry(rcvWallet).CurrentValues.SetValues(rcvWallet);
+            if (db.SaveChanges() > 0) return rcv;
+            else return null;
         }
     }
 }

@@ -82,19 +82,24 @@ namespace BLL.Services
             var data = DataAccessFactory.UserData().Delete(id);
             return data != null;
         }
+        public static UserDTO GetbyPhone(string phone)
+        {
+            var data = DataAccessFactory.UserSendMoney().GetByPhone(phone);
+            var mapped = GetMapper().Map<UserDTO>(data);
+            return mapped;
+        }
 
         public static bool SendMoney(int senderId, string rcvPhn, decimal amount)
         {
-            var sndr = UserService.Get(senderId);
-            var rcv = UserService.Get().FirstOrDefault(u => u.Phone == rcvPhn);
-            if (sndr == null || rcv == null)
-                return false;
-            var sndrWallet = WalletService.Get().FirstOrDefault(w => w.UserId == sndr.Id);
-            var rcvWallet = WalletService.Get().FirstOrDefault(w => w.UserId == rcv.Id);
-            if (sndrWallet == null || rcvWallet == null || sndrWallet.Balance < amount)
-                return false;
-            var deducted = WalletService.DeductMoney(sndrWallet.Id, amount);
-            var added = WalletService.AddMoney(rcvWallet.Id, amount);
+            var sender = DataAccessFactory.UserData().Read(senderId);
+            if (sender == null) return false;
+            var data = DataAccessFactory.UserSendMoney().SendMoney(sender, rcvPhn, amount);
+            if (data == null) return false;
+            var rcv = DataAccessFactory.UserData().Read().FirstOrDefault(u => u.Phone == rcvPhn);
+            if (rcv == null) return false;
+            var sndrWallet = DataAccessFactory.WalletData().Read().FirstOrDefault(w => w.UserId == sender.Id);
+            var rcvWallet = DataAccessFactory.WalletData().Read().FirstOrDefault(w => w.UserId == rcv.Id);
+
             var txn = new TransactionDTO
             {
                 SenderWalletId = sndrWallet.Id,
@@ -104,16 +109,20 @@ namespace BLL.Services
                 Status = "Success",
                 CreatedAt = DateTime.Now
             };
-            var SndrMsg = $"You have sent {amount} to {rcv.Name}, New Balance: {deducted.Balance}";
-            var RcvMsg = $"You have received {amount} from {sndr.Name}, New Balance: {added.Balance}";
+            var txnResult = TransactionService.Create(txn);
+
+            var SndrMsg = $"You have sent {amount} to {rcv.Name}, New Balance: {sndrWallet.Balance}";
+            var RcvMsg = $"You have received {amount} from {sender.Name}, New Balance: {rcvWallet.Balance}";
+
             NotificationService.Create(new NotificationDTO
             {
-                UserId = sndr.Id,
+                UserId = sender.Id,
                 Message = SndrMsg,
                 Type = "Transaction",
                 CreatedAt = DateTime.Now,
                 IsRead = false
             });
+
             NotificationService.Create(new NotificationDTO
             {
                 UserId = rcv.Id,
@@ -122,9 +131,11 @@ namespace BLL.Services
                 CreatedAt = DateTime.Now,
                 IsRead = false
             });
-            var txnCreated = TransactionService.Create(txn);
-            return txnCreated;
+
+            return txnResult;
         }
+
+
 
 
     }

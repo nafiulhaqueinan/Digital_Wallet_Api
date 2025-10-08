@@ -127,6 +127,21 @@ namespace Application_Layer.Controllers
                 //    CreatedAt = DateTime.Now,
                 //    IsRead = false
                 //});
+                var sender = UserService.Get(senderId);
+                var sndrWallet = WalletService.Get().FirstOrDefault(w => w.UserId == sender.Id);
+                if (sender == null)
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { msg = "Sender not found" });
+                var receiver = UserService.GetbyPhone(rcvPhn);
+                if (receiver == null)
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { msg = "Receiver not found" });
+                if (amount <= 0)
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, new { msg = "Amount must be greater than zero" });
+                if (sender.Id == receiver.Id)
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, new { msg = "Sender and receiver cannot be the same" });
+                if (sndrWallet == null)
+                    return Request.CreateResponse(HttpStatusCode.NotFound, new { msg = "Sender's wallet not found" });
+                if (sndrWallet.Balance < amount)
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, new { msg = "Insufficient balance" });
                 var success = UserService.SendMoney(senderId, rcvPhn, amount);
                 
                 return Request.CreateResponse(HttpStatusCode.OK, new { success = true, senderNewBalance = amount, receiverNewBalance = amount });
