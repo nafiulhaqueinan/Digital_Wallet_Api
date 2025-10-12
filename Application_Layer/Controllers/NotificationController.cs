@@ -16,7 +16,7 @@ namespace Application_Layer.Controllers
         {
             try
             {
-                // Placeholder for actual service call
+                
                 var data = new List<string> { "Notification1", "Notification2" };
                 return Request.CreateResponse(System.Net.HttpStatusCode.OK, data);
             }
@@ -31,7 +31,7 @@ namespace Application_Layer.Controllers
         {
             try
             {
-                // Placeholder for actual creation logic
+                
                 var notification = new { Id = 1, Message = "New Notification" };
                 return Request.CreateResponse(System.Net.HttpStatusCode.OK, notification);
             }
@@ -46,7 +46,7 @@ namespace Application_Layer.Controllers
         {
             try
             {
-                // Placeholder for actual deletion logic
+                
                 var success = true;
                 return Request.CreateResponse(System.Net.HttpStatusCode.OK, success);
             }
@@ -61,7 +61,7 @@ namespace Application_Layer.Controllers
         {
             try
             {
-                // Placeholder for actual update logic
+                
                 var notification = new { Id = 1, Message = "Updated Notification" };
                 return Request.CreateResponse(System.Net.HttpStatusCode.OK, notification);
             }

@@ -26,7 +26,7 @@ namespace DAL.Models
         public string Message { get; set; }
 
         [Required]
-        public string Type { get; set; } // transaction, budget, system
+        public string Type { get; set; } 
 
         public bool IsRead { get; set; } = false;
 

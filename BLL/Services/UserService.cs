@@ -57,10 +57,20 @@ namespace BLL.Services
                 Balance = 0,
                 Currency = "BDT",
                 LastUpdate = DateTime.Now,
-                AgentId = 1
+                AgentId = 4
             };
 
             var walletRes = DataAccessFactory.WalletData().Create(wallet);
+            var budget = new Budget
+            {
+                UserId = createdUser.Id,
+                MonthlyLimit = 30000,
+                CurrentSpend= 0,
+                Month = DateTime.Now.ToString("yyyy-MM"),
+                CreatedAt = DateTime.Now
+            };
+            var budgetRes = DataAccessFactory.BudgetData().Create(budget);
+
 
             return walletRes != null;
         }
@@ -91,6 +101,7 @@ namespace BLL.Services
 
         public static bool SendMoney(int senderId, string rcvPhn, decimal amount)
         {
+
             var sender = DataAccessFactory.UserData().Read(senderId);
             if (sender == null) return false;
             var data = DataAccessFactory.UserSendMoney().SendMoney(sender, rcvPhn, amount);
@@ -100,15 +111,28 @@ namespace BLL.Services
             var sndrWallet = DataAccessFactory.WalletData().Read().FirstOrDefault(w => w.UserId == sender.Id);
             var rcvWallet = DataAccessFactory.WalletData().Read().FirstOrDefault(w => w.UserId == rcv.Id);
 
-            var txn = new TransactionDTO
+            var sndrBudget = DataAccessFactory.BudgetData().Read().FirstOrDefault(b => b.UserId == sender.Id && b.Month == DateTime.Now.ToString("yyyy-MM"));
+            if (sndrBudget.MonthlyLimit > sndrBudget.CurrentSpend)
             {
-                SenderWalletId = sndrWallet.Id,
-                ReceiverWalletId = rcvWallet.Id,
-                Type = "SendMoney",
-                Amount = amount,
-                Status = "Success",
-                CreatedAt = DateTime.Now
-            };
+                sndrBudget.CurrentSpend += amount;
+                DataAccessFactory.BudgetData().Update(sndrBudget);
+            }
+            else
+            {
+                return false;
+
+            }
+
+
+                var txn = new TransactionDTO
+                {
+                    SenderWalletId = sndrWallet.Id,
+                    ReceiverWalletId = rcvWallet.Id,
+                    Type = "SendMoney",
+                    Amount = amount,
+                    Status = "Success",
+                    CreatedAt = DateTime.Now
+                };
             var txnResult = TransactionService.Create(txn);
 
             var SndrMsg = $"You have sent {amount} to {rcv.Name}, New Balance: {sndrWallet.Balance}";
@@ -132,11 +156,19 @@ namespace BLL.Services
                 IsRead = false
             });
 
+
             return txnResult;
         }
-
-
-
-
+        public static bool ResetPassword(int userId, string oldPassword, string newPassword)
+        {
+            var user = DataAccessFactory.UserData().Read(userId);
+            if (user == null || user.Password != oldPassword)
+            {
+                return false;
+            }
+            user.Password = newPassword;
+            var updatedUser = DataAccessFactory.UserData().Update(user);
+            return updatedUser != null;
+        }
     }
 }

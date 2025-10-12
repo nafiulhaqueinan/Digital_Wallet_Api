@@ -25,7 +25,7 @@ namespace DAL.Models
         public decimal CurrentSpend { get; set; } = 0;
 
         [Required, MaxLength(7)]
-        public string Month { get; set; } // e.g., "2025-09"
+        public string Month { get; set; } 
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;

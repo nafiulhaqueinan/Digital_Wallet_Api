@@ -68,7 +68,7 @@ namespace Application_Layer.Controllers
         {
             try
             {
-                var wallet = new BLL.DTOs.WalletDTO
+                var wallet = new WalletDTO
                 {
                     Id = id,
                     UserId = 0,
@@ -107,6 +107,26 @@ namespace Application_Layer.Controllers
             {
                 var data = WalletService.AddMoney(id, amount);
                 return Request.CreateResponse(System.Net.HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(System.Net.HttpStatusCode.InternalServerError, new { Msg = ex.Message });
+            }
+        }
+        [HttpPut]
+        [Route("add/number/{number}/{amount}")]
+        public HttpResponseMessage AddMoneybyNumber(string number, decimal anoumt)
+        {
+            try
+            {
+                var user = UserService.GetbyPhone(number);
+                if (user == null) return Request.CreateResponse(System.Net.HttpStatusCode.NotFound, new { Msg = "User not found" });
+                var wallets = WalletService.Get().FirstOrDefault(w => w.UserId==user.Id);
+                if (wallets ==  null) return Request.CreateResponse(System.Net.HttpStatusCode.NotFound, new { Msg = "Wallet not found" });
+                var data = WalletService.AddMoney(wallets.Id, anoumt);
+                return Request.CreateResponse(System.Net.HttpStatusCode.OK, data);
+
+
             }
             catch (Exception ex)
             {

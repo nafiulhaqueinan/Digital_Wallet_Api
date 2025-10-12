@@ -25,7 +25,7 @@ namespace DAL.Models
         public string Phone { get; set; }
 
         [Required]
-        public string Status { get; set; } = "active"; // active, inactive, blocked
+        public string Status { get; set; } = "active"; 
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;

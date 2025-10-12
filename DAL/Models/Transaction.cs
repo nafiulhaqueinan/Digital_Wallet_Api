@@ -26,12 +26,12 @@ namespace DAL.Models
         public virtual Wallet ReceiverWallet { get; set; }
 
         [Required]
-        public string Type { get; set; } // transfer, deposit, withdraw, payment
+        public string Type { get; set; } 
 
         [Required]
         public decimal Amount { get; set; }
 
-        public string Status { get; set; } = "pending"; // pending, completed, failed
+        public string Status { get; set; } = "pending"; 
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }

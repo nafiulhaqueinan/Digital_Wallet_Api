@@ -29,7 +29,7 @@ namespace DAL.Models
 
         public string LicenseNo { get; set; }
 
-        public decimal CommissionRate { get; set; } = 0; // percentage
+        public decimal CommissionRate { get; set; } = 0; 
 
         public string Location { get; set; }
 
@@ -40,7 +40,7 @@ namespace DAL.Models
 
 
 
-        // Relationships
+     
         public ICollection<Wallet> Wallets { get; set; }
         public ICollection<Notification> Notifications { get; set; }
     }

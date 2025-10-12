@@ -55,21 +55,9 @@
     <Compile Include="Interfaces\IaddAndDed.cs" />
     <Compile Include="Interfaces\IRepo.cs" />
     <Compile Include="Interfaces\ISendMoney.cs" />
-    <Compile Include="Migrations\202509240939191_FixTransactionIssue.cs" />
-    <Compile Include="Migrations\202509240939191_FixTransactionIssue.Designer.cs">
-      <DependentUpon>202509240939191_FixTransactionIssue.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202509241020290_SeedInitialData.cs" />
-    <Compile Include="Migrations\202509241020290_SeedInitialData.Designer.cs">
-      <DependentUpon>202509241020290_SeedInitialData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202509241022322_SeedInitialData1.cs" />
-    <Compile Include="Migrations\202509241022322_SeedInitialData1.Designer.cs">
-      <DependentUpon>202509241022322_SeedInitialData1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202509241034194_SeedInitialData2.cs" />
-    <Compile Include="Migrations\202509241034194_SeedInitialData2.Designer.cs">
-      <DependentUpon>202509241034194_SeedInitialData2.cs</DependentUpon>
+    <Compile Include="Migrations\202510101738151_InitialCreate.cs" />
+    <Compile Include="Migrations\202510101738151_InitialCreate.Designer.cs">
+      <DependentUpon>202510101738151_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Agent.cs" />
@@ -93,17 +81,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202509240939191_FixTransactionIssue.resx">
-      <DependentUpon>202509240939191_FixTransactionIssue.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202509241020290_SeedInitialData.resx">
-      <DependentUpon>202509241020290_SeedInitialData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202509241022322_SeedInitialData1.resx">
-      <DependentUpon>202509241022322_SeedInitialData1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202509241034194_SeedInitialData2.resx">
-      <DependentUpon>202509241034194_SeedInitialData2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202510101738151_InitialCreate.resx">
+      <DependentUpon>202510101738151_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

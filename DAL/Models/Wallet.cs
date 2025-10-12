@@ -27,7 +27,7 @@ namespace DAL.Models
 
         public DateTime LastUpdate { get; set; } = DateTime.Now;
 
-        // Relationships
+        
         public ICollection<Transaction> SentTransactions { get; set; }
         public ICollection<Transaction> ReceivedTransactions { get; set; }
     }

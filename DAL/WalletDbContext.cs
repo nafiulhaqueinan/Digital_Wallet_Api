@@ -20,14 +20,12 @@ namespace DAL
         {
             base.OnModelCreating(modelBuilder);
 
-            // Disable cascade delete for SenderWallet in Transaction
             modelBuilder.Entity<Transaction>()
                 .HasRequired(t => t.SenderWallet)
                 .WithMany(w => w.SentTransactions)
                 .HasForeignKey(t => t.SenderWalletId)
                 .WillCascadeOnDelete(false);
 
-            // Disable cascade delete for ReceiverWallet in Transaction
             modelBuilder.Entity<Transaction>()
                 .HasRequired(t => t.ReceiverWallet)
                 .WithMany(w => w.ReceivedTransactions)

@@ -50,7 +50,6 @@ namespace BLL.Services
             var mappedAgent = mapper.Map<Agent>(agent);
             var updatedAgent = DataAccessFactory.AgentData().Update(mappedAgent);
             return updatedAgent != null;
-        }
-
+        } 
     }
 }
